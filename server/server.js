@@ -9,7 +9,7 @@ const port = 3000;
 app.use(cors());
 
 app.get('/getFiles', (req, res) => {
-  const folderPath = '../../../INFOH423/instrument_anomalies'; 
+  const folderPath = '../instrument_anomalies'; 
 
   fs.readdir(folderPath, (err, files) => {
     if (err) {
@@ -22,7 +22,7 @@ app.get('/getFiles', (req, res) => {
   });
 });
 app.get('/getFile', async (req, res) => {
-  const folderPath = path.join(__dirname, '../../../INFOH423/instrument_anomalies/');
+  const folderPath = path.join(__dirname, '../../instrument_anomalies/');
 
   // Get the fileName parameter from the query string
   const fileName = req.query.fileName;
@@ -44,6 +44,75 @@ app.get('/getFile', async (req, res) => {
   }
 });
 
+app.get('/getFileAirTemp', async (req, res) => {
+  const folderPath = path.join(__dirname, '../../JSON/InAirTempAnomaly/');
+
+  // Get the fileName parameter from the query string
+  const fileName = req.query.fileName;
+
+  if (!fileName) {
+    res.status(400).json({ error: 'Air temp fileName parameter is required' });
+    return;
+  }
+
+  try {
+    const filePath = path.join(folderPath, fileName);
+
+    await fs.readFile(filePath, 'utf8', function(err,data){
+      res.json(data)
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error reading or parsing JSON file' });
+  }
+
+});
+
+app.get('/getFileOilTemp', async (req, res) => {
+  const folderPath = path.join(__dirname, '../../JSON/OilTempAnomaly/');
+
+  // Get the fileName parameter from the query string
+  const fileName = req.query.fileName;
+
+  if (!fileName) {
+    res.status(400).json({ error: 'Oil temp fileName parameter is required' });
+    return;
+  }
+
+  try {
+    const filePath = path.join(folderPath, fileName);
+
+    await fs.readFile(filePath, 'utf8', function(err,data){
+      res.json(data)
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error reading or parsing JSON file' });
+  }
+});
+
+app.get('/getFileWatTemp', async (req, res) => {
+  const folderPath = path.join(__dirname, '../../JSON/WatTempAnomaly/');
+
+  // Get the fileName parameter from the query string
+  const fileName = req.query.fileName;
+
+  if (!fileName) {
+    res.status(400).json({ error: 'Wat temp fileName parameter is required' });
+    return;
+  }
+
+  try {
+    const filePath = path.join(folderPath, fileName);
+
+    await fs.readFile(filePath, 'utf8', function(err,data){
+      res.json(data)
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error reading or parsing JSON file' });
+  }
+});
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

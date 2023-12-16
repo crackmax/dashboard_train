@@ -32,6 +32,7 @@ export default {
                 console.error('Error fetching file names:', error);
             }
         },
+        
         extractNumber(fileName) {
             const match = fileName.match(/\d+/);
             return match ? match[0] : '';
@@ -44,7 +45,9 @@ export default {
             this.instrumentAnomalies = JSON.parse(data.replace(/\bNaN\b/g, "null"))
             eventBus.$emit('inst_anomales', this.instrumentAnomalies);
             eventBus.$emit('train_id', this.extractNumber(value));
-        },
+
+           
+        }
     },
 };
 </script>

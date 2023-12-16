@@ -32,10 +32,16 @@
                     <LineChart :chartData="chartData" />
                 </v-col>
             </v-row>
+            
+           
         </div>
         <div v-else>
             <h3>No instrument anomalies reported</h3>
         </div>
+        <div>
+            <AirTempAnomalyWindow />
+        </div>
+        
     </v-container>
 </template>
   
@@ -43,12 +49,14 @@
 import LocationMap from './LocationMap';
 import eventBus from '../vuex/eventbus';
 import LineChart from './LineChart';
+import AirTempAnomalyWindow from './AirTempAnomalyWindow';
 export default {
     name: 'AnalysisWindow',
 
     components: {
         LocationMap,
         LineChart,
+        AirTempAnomalyWindow
     },
     data() {
         return {
@@ -77,6 +85,10 @@ export default {
     },
     mounted() {
         // Listen for the event
+        
+        eventBus.$on('train_id', (data) => {
+            this.train_id = data
+        });
         eventBus.$on('inst_anomales', (data) => {
             if (data && data.content.length > 0) {
                 this.inst_anomalies = data.content;
@@ -85,9 +97,6 @@ export default {
             }
             this.createChartData(this.inst_anomalies[0])
             this.selectedItem = 0;
-        });
-        eventBus.$on('train_id', (data) => {
-            this.train_id = data
         });
     },
     computed: {
