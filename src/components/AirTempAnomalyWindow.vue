@@ -93,14 +93,17 @@ export default {
     computed: {
         indexedTresholdAnomalies() {
             if(this.selectedColumn == 'Air temperature' && this.airTempAnomalies.content){
+                this.createChartData(this.airTempAnomalies.content[0])
                 return this.airTempAnomalies.content.map((item, index) => ({ index, text: index }));
             }
 
             if(this.selectedColumn == 'OilTemp' && this.oilTempAnomalies.content){
+                this.createChartData(this.oilTempAnomalies.content[0])
                 return this.oilTempAnomalies.content.map((item, index) => ({ index, text: index }));
             }
 
             if(this.selectedColumn == 'WatTemp' && this.watTempAnomalies.content){
+                this.createChartData(this.watTempAnomalies.content[0])
                 return this.watTempAnomalies.content.map((item, index) => ({ index, text: index }));
             }
 
