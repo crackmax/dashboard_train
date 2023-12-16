@@ -1,6 +1,7 @@
 <template>
     <v-navigation-drawer>
         <v-list>
+            <v-list-item @click="handleHome">Home</v-list-item>
             <v-list-item v-for="(value, key) in files" :key="key" @click="handleItemClick(value)">
                 <v-list-item-content>
                     <v-list-item-title>Train {{ extractNumber(value) }}</v-list-item-title>
@@ -17,6 +18,7 @@ export default {
         return {
             files: [],
             instrumentAnomalies: [],
+            home:true,
         };
     },
     created() {
@@ -45,8 +47,12 @@ export default {
             this.instrumentAnomalies = JSON.parse(data.replace(/\bNaN\b/g, "null"))
             eventBus.$emit('inst_anomales', this.instrumentAnomalies);
             eventBus.$emit('train_id', this.extractNumber(value));
-
-           
+            this.home = false
+            eventBus.$emit('home', this.home);
+        },
+        handleHome(){
+            this.home = true
+            eventBus.$emit('home', this.home);
         }
     },
 };
