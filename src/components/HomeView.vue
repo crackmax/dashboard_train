@@ -58,15 +58,22 @@
                 </v-row>
             </div>
         </div>
+        <br>
+        <div>
+            <PlotsView />
+        </div>
     </div>
 </template>
 <script>
 import PieChart from './PieChart';
+import PlotsView from './PlotsView';
+
 export default {
     name: 'HomeView',
 
     components: {
         PieChart,
+        PlotsView
     },
     data() {
         return {

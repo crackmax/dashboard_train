@@ -71,7 +71,7 @@ export default {
             this.selectedItem = 0;
             this.selectedColumn == 'Air temperature'
             if(this.selectedColumn == 'Air temperature'){
-                this.fetchTempAnomalyFile();
+                 this.fetchTempAnomalyFile();
                 this.createChartData(this.airTempAnomalies.content[0])
                 this.selectedItem = 0;
             }
@@ -167,15 +167,15 @@ export default {
             }
         },
         createChart() {
-            if(this.selectedColumn == 'Air temperature'){
+            if(this.selectedColumn == 'Air temperature' && this.airTempAnomalies.content){
                 this.createChartData(this.airTempAnomalies.content[this.selectedItem])
             }
 
-            if(this.selectedColumn == 'OilTemp'){
+            if(this.selectedColumn == 'OilTemp' && this.oilTempAnomalies.content){
                 this.createChartData(this.oilTempAnomalies.content[this.selectedItem])
             }
 
-            if(this.selectedColumn == 'WatTemp'){
+            if(this.selectedColumn == 'WatTemp' && this.watTempAnomalies.content){
                 this.createChartData(this.watTempAnomalies.content[this.selectedItem])
             }
         },
